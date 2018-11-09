@@ -33,9 +33,9 @@ public class Lift {
 
         if(gamepad.a)
         {
-            clampServo.setPosition(90);
+            clampServo.setPosition(.5);
         }
-        else
+        else if(gamepad.b)
         {
             clampServo.setPosition(0);
         }
