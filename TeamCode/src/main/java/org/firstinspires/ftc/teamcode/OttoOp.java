@@ -32,6 +32,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 @TeleOp
@@ -44,7 +45,7 @@ public class OttoOp extends OpMode {
     @Override
     public void init() {
         telemetry.addData("Status", "Initializing");
-        lift = new Lift(hardwareMap.get(DcMotor.class, "llm"), hardwareMap.get(DcMotor.class, "rlm"));
+        lift = new Lift(hardwareMap.get(DcMotor.class, "llm"), hardwareMap.get(DcMotor.class, "rlm"), hardwareMap.get(Servo.class, "cm"));
         telemetry.addData("Status", "Initialized");
     }
 
