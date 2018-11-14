@@ -27,14 +27,14 @@ public class DriveTrain {
 
     public void update(Gamepad gamepad, Telemetry telemetry)
     {
-        double drive = -gamepad.left_stick_y;
-        double turn = gamepad.left_stick_x;
-        double strafe = gamepad.right_stick_x;
+        double drive = gamepad.left_stick_y;
+        double turn = gamepad.right_stick_x;
+        double strafe = gamepad.left_stick_x;
 
         frontLeftDrive.setPower(Range.clip(drive + turn - strafe, -1.0, 1.0) );
-        frontRightDrive.setPower(Range.clip(drive - turn + strafe, -1.0, 1.0) );
+        frontRightDrive.setPower(Range.clip(drive - turn - strafe, -1.0, 1.0) );
         backLeftDrive.setPower(Range.clip(drive + turn + strafe, -1.0, 1.0) );
-        backRightDrive.setPower(Range.clip(drive - turn - strafe, -1.0, 1.0) );
+        backRightDrive.setPower(Range.clip(drive - turn + strafe, -1.0, 1.0) );
     }
 
 
