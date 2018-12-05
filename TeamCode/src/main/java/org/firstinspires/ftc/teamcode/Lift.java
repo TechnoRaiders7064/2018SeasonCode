@@ -12,17 +12,20 @@ public class Lift {
     private DcMotor leftLiftMotor = null;
     private DcMotor rightLiftMotor = null;
     private Servo clampServo = null;
+    private boolean isClosed;
 
     private final int LIFTMAX = 1000;
 
     Lift(DcMotor leftLiftMotor, DcMotor rightLiftMotor, Servo clampServo)
     {
+
         this.leftLiftMotor = leftLiftMotor;
         this.rightLiftMotor = rightLiftMotor;
         this.clampServo = clampServo;
-
         this.leftLiftMotor.setDirection(DcMotor.Direction.FORWARD);
         this.rightLiftMotor.setDirection(DcMotor.Direction.REVERSE);
+        clampServo.setPosition(.5);
+        isClosed = true;
     }
     public void update(Gamepad gamepad, Telemetry telemetry)
     {
@@ -32,20 +35,22 @@ public class Lift {
         if(gamepad.a)
         {
             clampServo.setPosition(.5);
+            isClosed = true;
         }
         else if(gamepad.b)
         {
             clampServo.setPosition(0);
+            isClosed = false;
         }
         //&& (leftPosition <= LIFTMAX && rightPosition <= LIFTMAX)
-        if(gamepad.dpad_up )
+        if(gamepad.dpad_up  && !isClosed)
         {
             leftLiftMotor.setPower(.8);
             //leftLiftMotor.setPower(proportationalControl(leftPosition, rightPosition, 1F, 0));
             rightLiftMotor.setPower(.8);
         }
         //&& leftPosition >= 0 && rightPosition >= 0
-        else if(gamepad.dpad_down )
+        else if(gamepad.dpad_down)
         {
             leftLiftMotor.setPower(-.8);
             //leftLiftMotor.setPower(proportationalControl(leftPosition, rightPosition, 1F, 0));
@@ -77,9 +82,11 @@ public class Lift {
     public void openClamp()
     {
         clampServo.setPosition(0);
+        isClosed = false;
     }
     public void closeClamp()
     {
         clampServo.setPosition(.5);
+        isClosed =true;
     }
 }
