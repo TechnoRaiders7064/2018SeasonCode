@@ -37,6 +37,14 @@ public class DriveTrain {
         backRightDrive.setPower(Range.clip(drive - turn + strafe, -1.0, 1.0) );
     }
 
+    public void drive(double drive, double turn, double strafe)
+    {
+        frontLeftDrive.setPower(Range.clip(-drive + turn - strafe, -1.0, 1.0) );
+        frontRightDrive.setPower(Range.clip(-drive - turn - strafe, -1.0, 1.0) );
+        backLeftDrive.setPower(Range.clip(-drive + turn + strafe, -1.0, 1.0) );
+        backRightDrive.setPower(Range.clip(-drive - turn + strafe, -1.0, 1.0) );
+    }
+
 
 
 }
