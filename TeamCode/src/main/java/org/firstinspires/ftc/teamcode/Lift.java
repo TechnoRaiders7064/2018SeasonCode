@@ -15,7 +15,6 @@ public class Lift {
 
     private final int LIFTMAX = 1000;
 
-
     Lift(DcMotor leftLiftMotor, DcMotor rightLiftMotor, Servo clampServo)
     {
         this.leftLiftMotor = leftLiftMotor;
@@ -25,7 +24,6 @@ public class Lift {
         this.leftLiftMotor.setDirection(DcMotor.Direction.FORWARD);
         this.rightLiftMotor.setDirection(DcMotor.Direction.REVERSE);
     }
-
     public void update(Gamepad gamepad, Telemetry telemetry)
     {
         int leftPosition = leftLiftMotor.getCurrentPosition();
@@ -71,5 +69,17 @@ public class Lift {
     {
          return Range.clip(base + gain*(desired-current),-1.0F, 1.0F);
     }
-
+    public void setPower(float power)
+    {
+        leftLiftMotor.setPower(power);
+        rightLiftMotor.setPower(power);
+    }
+    public void openClamp()
+    {
+        clampServo.setPosition(0);
+    }
+    public void closeClamp()
+    {
+        clampServo.setPosition(.5);
+    }
 }
