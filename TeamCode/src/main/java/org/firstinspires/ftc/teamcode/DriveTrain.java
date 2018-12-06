@@ -12,6 +12,8 @@ public class DriveTrain {
     DcMotor backLeftDrive = null;
     DcMotor backRightDrive = null;
 
+    private boolean precisionMode;
+    private boolean isYReset;
     DriveTrain(DcMotor frontLeftDrive, DcMotor frontRightDrive, DcMotor backLeftDrive, DcMotor backRightDrive)
     {
         this.frontLeftDrive =  frontLeftDrive;
@@ -23,18 +25,44 @@ public class DriveTrain {
         this.backLeftDrive.setDirection(DcMotorSimple.Direction.FORWARD);
         this.frontRightDrive.setDirection(DcMotorSimple.Direction.REVERSE);
         this.backRightDrive.setDirection(DcMotorSimple.Direction.REVERSE);
+
+        precisionMode = false;
+        isYReset = true;
     }
 
     public void update(Gamepad gamepad, Telemetry telemetry)
     {
-        double drive = gamepad.left_stick_y;
-        double turn = gamepad.right_stick_x;
-        double strafe = gamepad.left_stick_x;
+        double modifier = 1.0;
+
+        if(precisionMode)
+            modifier = .25;
+
+        double drive = gamepad.left_stick_y * modifier;
+        double turn = gamepad.right_stick_x * modifier;
+        double strafe = gamepad.left_stick_x *modifier;
+
+        if(gamepad.y && isYReset)
+        {
+            precisionMode = !precisionMode;
+            isYReset = false;
+        }
+        else if(!gamepad.y)
+        {
+            isYReset = true;
+        }
 
         frontLeftDrive.setPower(Range.clip(drive + turn - strafe, -1.0, 1.0) );
         frontRightDrive.setPower(Range.clip(drive - turn - strafe, -1.0, 1.0) );
         backLeftDrive.setPower(Range.clip(drive + turn + strafe, -1.0, 1.0) );
         backRightDrive.setPower(Range.clip(drive - turn + strafe, -1.0, 1.0) );
+    }
+
+    public void drive(double drive, double turn, double strafe)
+    {
+        frontLeftDrive.setPower(Range.clip(-drive + turn - strafe, -1.0, 1.0) );
+        frontRightDrive.setPower(Range.clip(-drive - turn - strafe, -1.0, 1.0) );
+        backLeftDrive.setPower(Range.clip(-drive + turn + strafe, -1.0, 1.0) );
+        backRightDrive.setPower(Range.clip(-drive - turn + strafe, -1.0, 1.0) );
     }
 
 
