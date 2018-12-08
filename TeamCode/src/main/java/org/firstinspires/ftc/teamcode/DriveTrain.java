@@ -6,7 +6,8 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.util.Range;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
-public class DriveTrain {
+public class DriveTrain
+{
     DcMotor frontLeftDrive = null;
     DcMotor frontRightDrive = null;
     DcMotor backLeftDrive = null;
@@ -14,9 +15,10 @@ public class DriveTrain {
 
     private boolean precisionMode;
     private boolean isYReset;
+
     DriveTrain(DcMotor frontLeftDrive, DcMotor frontRightDrive, DcMotor backLeftDrive, DcMotor backRightDrive)
     {
-        this.frontLeftDrive =  frontLeftDrive;
+        this.frontLeftDrive = frontLeftDrive;
         this.frontRightDrive = frontRightDrive;
         this.backLeftDrive = backLeftDrive;
         this.backRightDrive = backRightDrive;
@@ -39,7 +41,7 @@ public class DriveTrain {
 
         double drive = gamepad.left_stick_y * modifier;
         double turn = gamepad.right_stick_x * modifier;
-        double strafe = gamepad.left_stick_x *modifier;
+        double strafe = gamepad.left_stick_x * modifier;
 
         if(gamepad.y && isYReset)
         {
@@ -51,20 +53,19 @@ public class DriveTrain {
             isYReset = true;
         }
 
-        frontLeftDrive.setPower(Range.clip(drive + turn - strafe, -1.0, 1.0) );
-        frontRightDrive.setPower(Range.clip(drive - turn - strafe, -1.0, 1.0) );
-        backLeftDrive.setPower(Range.clip(drive + turn + strafe, -1.0, 1.0) );
-        backRightDrive.setPower(Range.clip(drive - turn + strafe, -1.0, 1.0) );
+        frontLeftDrive.setPower(Range.clip(drive + turn - strafe, -1.0, 1.0));
+        frontRightDrive.setPower(Range.clip(drive - turn - strafe, -1.0, 1.0));
+        backLeftDrive.setPower(Range.clip(drive + turn + strafe, -1.0, 1.0));
+        backRightDrive.setPower(Range.clip(drive - turn + strafe, -1.0, 1.0));
     }
 
     public void drive(double drive, double turn, double strafe)
     {
-        frontLeftDrive.setPower(Range.clip(-drive + turn - strafe, -1.0, 1.0) );
-        frontRightDrive.setPower(Range.clip(-drive - turn - strafe, -1.0, 1.0) );
-        backLeftDrive.setPower(Range.clip(-drive + turn + strafe, -1.0, 1.0) );
-        backRightDrive.setPower(Range.clip(-drive - turn + strafe, -1.0, 1.0) );
+        frontLeftDrive.setPower(Range.clip(-drive + turn - strafe, -1.0, 1.0));
+        frontRightDrive.setPower(Range.clip(-drive - turn - strafe, -1.0, 1.0));
+        backLeftDrive.setPower(Range.clip(-drive + turn + strafe, -1.0, 1.0));
+        backRightDrive.setPower(Range.clip(-drive - turn + strafe, -1.0, 1.0));
     }
-
 
 
 }
