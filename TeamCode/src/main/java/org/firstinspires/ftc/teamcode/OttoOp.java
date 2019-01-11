@@ -5,6 +5,8 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.hardware.Servo;
+import org.firstinspires.ftc.teamcode.modules.DriveTrain;
+import org.firstinspires.ftc.teamcode.modules.Lift;
 
 @TeleOp
 public class OttoOp extends OpMode
@@ -37,8 +39,8 @@ public class OttoOp extends OpMode
     @Override
     public void loop()
     {
-        lift.update(gamepad1, telemetry);
-        driveTrain.update(gamepad1, telemetry);
+        lift.update(gamepad1);
+        driveTrain.update(gamepad1);
     }
 
     @Override
