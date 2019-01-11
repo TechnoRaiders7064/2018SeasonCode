@@ -69,10 +69,10 @@ public class DriveTrain
 
     public void encTurn(Telemetry telemetry, double speed, int distance)
     {
-        int frontLeftStart = frontLeftDrive.getCurrentPosition();
-        int frontRightStart = frontRightDrive.getCurrentPosition();
-        int backLeftStart = backLeftDrive.getCurrentPosition();
-        int backRightStart = backRightDrive.getCurrentPosition();
+        int frontLeftStart = Math.abs(frontLeftDrive.getCurrentPosition());
+        int frontRightStart = Math.abs(frontRightDrive.getCurrentPosition());
+        int backLeftStart = Math.abs(backLeftDrive.getCurrentPosition());
+        int backRightStart = Math.abs(backRightDrive.getCurrentPosition());
         drive(0, speed, 0);
         while(Math.abs(frontLeftDrive.getCurrentPosition()) - frontLeftStart < distance &&
               Math.abs(frontRightDrive.getCurrentPosition()) - frontRightStart < distance &&
@@ -93,15 +93,15 @@ public class DriveTrain
     {
         if(distance<0)
             throw new NumberFormatException("distance should always be positive");
-        int frontLeftStart = frontLeftDrive.getCurrentPosition();
-        int frontRightStart = frontRightDrive.getCurrentPosition();
-        int backLeftStart = backLeftDrive.getCurrentPosition();
-        int backRightStart = backRightDrive.getCurrentPosition();
+        int frontLeftStart = Math.abs(frontLeftDrive.getCurrentPosition());
+        int frontRightStart = Math.abs(frontRightDrive.getCurrentPosition());
+        int backLeftStart = Math.abs(backLeftDrive.getCurrentPosition());
+        int backRightStart = Math.abs(backRightDrive.getCurrentPosition());
         drive(speed, 0, 0);
-        while(Math.abs(frontLeftDrive.getCurrentPosition()) - frontLeftStart < distance ||
-              Math.abs(frontRightDrive.getCurrentPosition()) - frontRightStart < distance ||
-              Math.abs(backLeftDrive.getCurrentPosition()) - backLeftStart < distance ||
-              Math.abs(backRightDrive.getCurrentPosition()) - backRightStart < distance)
+        while(Math.abs(frontLeftDrive.getCurrentPosition() - frontLeftStart) < distance ||
+              Math.abs(frontRightDrive.getCurrentPosition() - frontRightStart) < distance ||
+              Math.abs(backLeftDrive.getCurrentPosition() - backLeftStart) < distance ||
+              Math.abs(backRightDrive.getCurrentPosition() - backRightStart) < distance)
         {
             telemetry.addData("d", distance);
             telemetry.addData("fl", frontLeftDrive.getCurrentPosition() - frontLeftStart);
