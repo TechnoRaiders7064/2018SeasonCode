@@ -91,8 +91,6 @@ public class DriveTrain
 
     public void encDrive(Telemetry telemetry, double speed, int distance)
     {
-        if(distance<0)
-            throw new NumberFormatException("distance should always be positive");
         int frontLeftStart = Math.abs(frontLeftDrive.getCurrentPosition());
         int frontRightStart = Math.abs(frontRightDrive.getCurrentPosition());
         int backLeftStart = Math.abs(backLeftDrive.getCurrentPosition());
